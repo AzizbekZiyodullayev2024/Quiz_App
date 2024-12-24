@@ -2,12 +2,11 @@
 
 use App\Router;
 
-$router = new Router();
 
-if($router->isApiCall()){
+if(Router::isApiCall()){
     require 'routes/api.php';
     exit();
-}else if($router->isTelegram()){
+}else if(Router::isTelegram()){
     require 'routes/telegram.php';
     exit();
 }
