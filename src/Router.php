@@ -1,19 +1,22 @@
 <?php
-
 namespace App;
-
 class Router {
-    public static string|array|int|null|false $currentRoute;
+    public $currentRoute;
     public function __construct () {
-        (new static())->currentRoute = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $this->currentRoute = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     }
+
+    public static function getRoute () {
+        return (new static())->currentRoute;
+}
+
     public static function getResource ($route): false|string
     {
         $resourceIndex = mb_stripos($route, '{id}');
         if (!$resourceIndex){
             return false;
         }
-        $resourceValue = substr((new static())->currentRoute, $resourceIndex);
+        $resourceValue = substr(self::getRoute(), $resourceIndex);
         if($limit = mb_stripos($resourceValue, '/')){
             return substr($resourceValue, 0, $limit);
         }
@@ -55,12 +58,12 @@ class Router {
         $resourceValue = self::getResource($route);
         if ($resourceValue) {
             $resourceRoute = str_replace('{id}', $resourceValue, $route);
-            if ($resourceRoute == (new static())->currentRoute) {
+            if ($resourceRoute == self::getResource()) {
                 $callback($resourceValue);
                 exit();
             }
         }
-        if ($route == (new static())->currentRoute) {
+        if ($route == self::getRoute()) {
             $callback();
             exit();
         }
