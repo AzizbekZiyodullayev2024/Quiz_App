@@ -5,6 +5,6 @@ namespace Controllers;
 class UserController{
     public static function index(): void
     {
-        echo 'Hello World from userController';
+        echo 'Hello World from userController!!!';
     }
 }
