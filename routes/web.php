@@ -2,8 +2,11 @@
 
 use App\Router;
 use Controllers\UserController;
+use Controllers\ToDoController;
 
-Router::get('/', fn () => (new UserController())->index());
+Router::get('/todos', [ToDoController::class, 'show']);
+Router::get('/users', [ToDoController::class, 'index']);
+
 //Router::get('/', function () {
 //    echo "Request Get";
 //});

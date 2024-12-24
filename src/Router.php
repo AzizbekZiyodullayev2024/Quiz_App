@@ -7,17 +7,20 @@ class Router {
     }
 
     public static function runCallbackFunc(string $route, callable $callback) {
-
+        if(gettype($callback) == 'array'){
+            echo json_encode($callback);
+            exit();
+        }
         $resourceValue = self::getResource($route);
         if ($resourceValue) {
             $resourceRoute = str_replace('{id}', $resourceValue, $route);
             if ($resourceRoute == self::getResource()) {
-                $callback($resourceValue);
+                var_dump((new $callback[0])->show());
                 exit();
             }
         }
         if ($route == self::getRoute()) {
-            $callback();
+            var_dump((new $callback[0])->show());
             exit();
         }
     }
@@ -85,10 +88,10 @@ class Router {
             exit();
         }
     }
-    public function isApiCall(): bool{
+    public static function isApiCall(): bool{
         return mb_stripos($_SERVER['REQUEST_URI'], '/api') === 0;
     }
-    public function isTelegram(): bool{
+    public static function isTelegram(): bool{
         return mb_stripos($_SERVER['REQUEST_URI'], '/telegram') === 0;
     }
 }
