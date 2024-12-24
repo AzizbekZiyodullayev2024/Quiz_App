@@ -6,10 +6,21 @@ class Router {
         $this->currentRoute = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     }
 
-    public static function runCallbackFunc(string $route, callable $callback) {
+    public static function runCallbackFunc(string $route, callable | array $callback): void
+    {
         if(gettype($callback) == 'array'){
-            echo json_encode($callback);
-            exit();
+            $resourceValue = self::getResource($route);
+            if ($resourceValue) {
+                $resourceRoute = str_replace('{id}', $resourceValue, $route);
+                if ($resourceRoute == self::getResource()) {
+                    (new $callback[0])->{$callback[1]};
+                    exit();
+                }
+            }
+            if ($route == self::getRoute()) {
+                (new $callback[0])->{$callback[1]}();
+                exit();
+            }
         }
         $resourceValue = self::getResource($route);
         if ($resourceValue) {
@@ -20,7 +31,7 @@ class Router {
             }
         }
         if ($route == self::getRoute()) {
-            var_dump((new $callback[0])->show());
+            callback();
             exit();
         }
     }

@@ -3,8 +3,8 @@
 namespace Controllers;
 
 class UserController{
-    public static function index(): void
+    public function show(): void
     {
-        echo 'Hello World from userController!!!';
+        echo 'Hello World from User Controller!!!';
     }
 }
