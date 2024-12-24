@@ -6,7 +6,24 @@ class Router {
         $this->currentRoute = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     }
 
-    public static function getRoute () {
+    public static function runCallbackFunc(string $route, callable $callback) {
+
+        $resourceValue = self::getResource($route);
+        if ($resourceValue) {
+            $resourceRoute = str_replace('{id}', $resourceValue, $route);
+            if ($resourceRoute == self::getResource()) {
+                $callback($resourceValue);
+                exit();
+            }
+        }
+        if ($route == self::getRoute()) {
+            $callback();
+            exit();
+        }
+    }
+
+    public static function getRoute (): false|array|int|string|null
+    {
         return (new static())->currentRoute;
 }
 
@@ -25,13 +42,13 @@ class Router {
     public static function get ($route, $callback): void
     {
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            self::extracted($route, $callback);
+            self::runCallbackFunc($route,$callback);
         }
     }
     public static function post ($route, $callback): void
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            self::extracted($route, $callback);
+            self::runCallbackFunc($route,$callback);
         }
     }
     public static function putApi ($route, $callback): void
@@ -44,7 +61,7 @@ class Router {
     public static function put ($route, $callback): void
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_method']) && strtoupper($_POST['_method']) === 'PUT') {
-            self::extracted($route, $callback);
+            self::runCallbackFunc($route,$callback);
         }
     }
     public static function delete ($route, $callback): void
