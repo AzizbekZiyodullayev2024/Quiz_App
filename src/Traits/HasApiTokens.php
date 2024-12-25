@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Traits;
-
 trait HasApiTokens{
     protected string $api_token;
     protected string $duration;
