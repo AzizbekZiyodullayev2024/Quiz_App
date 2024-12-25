@@ -17,6 +17,9 @@ class User extends DB{
                 ':email' => $email,
                 ':password' => password_hash($password,  PASSWORD_DEFAULT),
         ]);
+        $userId = $this->conn->lastInsertId();
+        $this->createApiToken($userId);
+        return true;
     }
 
     public function getUser(string $email,string $password): bool
