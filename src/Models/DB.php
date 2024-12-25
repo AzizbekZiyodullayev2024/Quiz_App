@@ -1,10 +1,8 @@
 <?php
 namespace App\Models;
-
-use AllowDynamicProperties;
 use PDO;
 
-#[AllowDynamicProperties] class DB{
+class DB{
     private string $db_name;
     private string $db_user;
     private string $db_pass;
