@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Models;
+
 use App\Traits\HasApiTokens;
-use PDO;
+
 class User extends DB{
     use HasApiTokens;
     public function getConn(): \PDO
@@ -12,11 +13,10 @@ class User extends DB{
     public function createUser(string $fullName, string $email, string $password): bool
     {
         $query = "INSERT INTO users (full_name, email, password, created_at, updated_at) 
-                  VALUES (:fullName, :email, :password, NOW(), NOW()";
-        return $this->conn
-            ->prepare($query)
-            ->execute([
-                ':full_name' => $fullName,
+                  VALUES (:fullName, :email, :password, NOW(), NOW())";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([
+                ':fullName' => $fullName,
                 ':email' => $email,
                 ':password' => password_hash($password,  PASSWORD_DEFAULT),
         ]);
@@ -31,12 +31,12 @@ class User extends DB{
         $stmt =  $this->conn->prepare($query);
         $stmt->execute([
             ':email' => $email,
-            ':password' => $password,
         ]);
         $user = $stmt->fetch();
         if($user && password_verify($password, $user->password)){
             return true;
+        }else {
+            return false;
         }
-        return false;
     }
 }
