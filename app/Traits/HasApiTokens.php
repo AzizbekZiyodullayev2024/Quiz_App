@@ -1,8 +1,15 @@
 <?php
-namespace App\Traits;
+
+namespace app\Traits;
+use Random\RandomException;
+
 trait HasApiTokens{
     protected string $api_token;
     protected string $duration;
+
+    /**
+     * @throws RandomException
+     */
     public function createApiToken (int $userId): string
     {
         $query = "INSERT INTO user_api_tokens (user_id, token, expires_at,created_at) 

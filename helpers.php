@@ -13,8 +13,9 @@ function redirect (string $url){
 }
 
 #[NoReturn]
-function apiResponse($data) : void{
+function apiResponse($data, $status = 200) : void{
     header('Content-Type: application/json');
+    http_response_code($status);
     echo json_encode($data);
     exit();
 }

@@ -4,14 +4,12 @@
 //use Controllers\UserController;
 //use Controllers\ToDoController;
 
-use App\Models\User;
+use app\Models\User;
 
 $user = new User();
 
 //dd($user->getConn());
-//dd($user->createUser("Azizbek","azizbek@gmail.com","2017"));
-dd($user->createUser("Shukrona","shukrona@gmail.com","1234"));
-
+dd($user->createUser("Kamola","Kamola@gmail.com","2024"));
 //Router::get('/todos', [ToDoController::class, 'index']);
 //Router::get('/users', [UserController::class, 'show']);
 //Router::get('/',function (){

@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace Source;
 class Router {
     public $currentRoute;
     public function __construct () {
@@ -40,7 +40,6 @@ class Router {
     {
         return (new static())->currentRoute;
 }
-
     public static function getResource ($route): false|string
     {
         $resourceIndex = mb_stripos($route, '{id}');

@@ -1,6 +1,6 @@
 <?php
 
-use App\Router;
+use Source\Router;
+use App\Controllers\API\UserController;
 
-Router::get("/api/test/", function(){});
-Router::get("/api/test/", function(){});
+Router::post("/api/users", [UserController::class, "store"]);
