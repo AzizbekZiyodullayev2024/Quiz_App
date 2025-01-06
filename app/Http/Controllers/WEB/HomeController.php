@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\WEB;
 
 class HomeController{
-    public function index(){
+    public function home(): void{
         view('home');
     }
+    public function about(){
+        view('about');
+    }
+
 }
