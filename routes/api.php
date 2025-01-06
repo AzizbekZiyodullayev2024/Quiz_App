@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\API\QuizController;
 use App\Http\Controllers\API\UserController;
-use src\Router;
+use Src\Router;
 
 // Auth
 Router::post("/api/register", [UserController::class, "store"]);
