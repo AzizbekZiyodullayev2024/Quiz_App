@@ -2,9 +2,8 @@
 
 namespace Src;
 
-class Router
-{
-    public $currentRoute;
+class Router{
+    public string|array|int|null|false $currentRoute;
 
     public function __construct()
     {
@@ -13,12 +12,12 @@ class Router
 
     public static function runCallbackFunc(string $route, callable|array $callback): void
     {
-        if (gettype($callback) == 'array') {
+        if (is_array($callback)) {
             $resourceValue = self::getResource($route);
             if ($resourceValue) {
                 $resourceRoute = str_replace('{id}', $resourceValue, $route);
-                if ($resourceRoute == self::getResource()) {
-                    (new $callback[0])->{$callback[1]};
+                if ($resourceRoute == self::getRoute()) {
+                    (new $callback[0])->{$callback[1]}();
                     exit();
                 }
             }
@@ -30,13 +29,13 @@ class Router
         $resourceValue = self::getResource($route);
         if ($resourceValue) {
             $resourceRoute = str_replace('{id}', $resourceValue, $route);
-            if ($resourceRoute == self::getResource()) {
-                var_dump((new $callback[0])->show());
+            if ($resourceRoute == self::getRoute()) {
+                $callback($resourceValue);
                 exit();
             }
         }
         if ($route == self::getRoute()) {
-            self::callback();
+            $callback();
             exit();
         }
     }
