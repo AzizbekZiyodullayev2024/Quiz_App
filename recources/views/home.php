@@ -18,4 +18,3 @@
     <h1 class="text-green">Request from home page</h1>>
 </body>
 </html>
-
