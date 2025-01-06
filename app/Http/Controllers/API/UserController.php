@@ -15,6 +15,8 @@ class UserController{
         ]);
         $user = new User();
         $user->createUser($userData['full_name'], $userData['email'], $userData['password']);
-        apiResponse(['message' => 'User created successfully'], 201);
+        apiResponse(['message' => 'User created successfully',
+                     'token' => $user->api_token,
+                    ], 201);
     }
 }
