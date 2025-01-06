@@ -1,8 +1,6 @@
 <?php
 
-namespace src;
-
-use function App\Http\callback;
+namespace Src;
 
 class Router
 {
@@ -38,7 +36,7 @@ class Router
             }
         }
         if ($route == self::getRoute()) {
-            callback();
+            self::callback();
             exit();
         }
     }
@@ -119,5 +117,9 @@ class Router
     public static function isTelegram(): bool
     {
         return mb_stripos($_SERVER['REQUEST_URI'], '/telegram') === 0;
+    }
+
+    private static function callback()
+    {
     }
 }

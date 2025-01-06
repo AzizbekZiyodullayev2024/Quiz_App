@@ -1,8 +1,6 @@
 <?php
-
 namespace Src;
 use App\Models\DB;
-use PDO;
 
 class Auth{
     public static function check(): bool{
