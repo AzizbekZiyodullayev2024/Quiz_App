@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http;
+namespace src;
+
+use function App\Http\callback;
 
 class Router
 {

@@ -1,6 +1,12 @@
 <?php
 
+use App\Http\Controllers\API\QuizController;
 use App\Http\Controllers\API\UserController;
-use App\Http\Router;
+use src\Router;
 
-Router::post("/api/users", [UserController::class, "store"]);
+// Auth
+Router::post("/api/register", [UserController::class, "store"]);
+Router::post("/api/login", [UserController::class, "login"]);
+
+// Quiz
+Router::post("/api/quizzes",[QuizController::class,"store"]);
