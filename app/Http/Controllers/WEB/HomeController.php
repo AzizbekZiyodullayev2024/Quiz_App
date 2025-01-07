@@ -9,6 +9,9 @@ class HomeController{
     public function login(){
         view('auth/login');
     }
+    public function register(){
+        view('auth/register');
+    }
     public function about(): void{
         view('about');
     }
