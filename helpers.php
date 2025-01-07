@@ -2,7 +2,7 @@
 
 function view (string $page, array $data = []){
     extract($data);
-    require 'recources/views/' . $page . '.php';
+    require 'resources/views/' . $page . '.php';
 }
 
 function redirect (string $url){
