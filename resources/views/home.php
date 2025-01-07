@@ -11,9 +11,10 @@
             text-align: center;
         }
     </style>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/tailwind.css">
 </head>
 <body>
+    <h1 class="text-green-900 underline text-5xl"></h1>
     <h1 style="color: red">Request from home page</h1>
     <h1 class="text-green">Request from home page</h1>>
 </body>
