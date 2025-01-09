@@ -21,9 +21,9 @@
                     <a href="login.html" class="text-gray-600 hover:text-gray-900">Login</a>
                     <a href="add-quiz.php"
                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
-                        Register
-                    </a>
+                        Register </a>
                 </div>
+                <h1></h1>
                 <div class="md:hidden flex items-center">
                     <button class="mobile-menu-button">
                         <i class="fas fa-bars text-gray-500 text-2xl"></i>
