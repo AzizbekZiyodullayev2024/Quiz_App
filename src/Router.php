@@ -121,4 +121,11 @@ class Router{
     private static function callback()
     {
     }
+
+    public static function notFound(string $route = 'api'){
+        if(self::isApiCall()){
+            apiResponse(['error' => 'Not Found'], 404);
+        }
+        view('404');
+    }
 }

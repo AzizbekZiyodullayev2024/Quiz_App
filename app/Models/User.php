@@ -27,7 +27,7 @@ class User extends DB{
 
     public function getUser(string $email,string $password): bool
     {
-        $query = "SELECT * FROM users WHERE email = :email AND password = :password";
+        $query = "SELECT * FROM users WHERE email = :email";
         $stmt =  $this->conn->prepare($query);
         $stmt->execute([
             ':email' => $email,

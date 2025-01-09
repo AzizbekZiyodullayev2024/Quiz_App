@@ -3,11 +3,12 @@
 namespace App\Traits;
 
 trait Validator{
-    public function validate(array $data){
+    public function validate(array $data): array
+    {
         $required_keys = [];
 
         foreach($data as $key=>$value){
-            if(array_key_exists($key,$_REQUEST)){
+            if(array_key_exists($key,$_REQUEST) and !empty($_REQUEST[$key])){
                 continue;
             }
             $required_keys[$key] = $key . ' is required';
@@ -15,7 +16,6 @@ trait Validator{
         if(!empty($required_keys)){
             apiResponse(['errors' => $required_keys],400);
         }
-        echo "Eser created with success!";
         return $_REQUEST;
     }
 }

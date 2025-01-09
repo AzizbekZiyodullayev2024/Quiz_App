@@ -10,3 +10,5 @@ Router::post("/api/login", [UserController::class, "login"]);
 
 // Quiz
 Router::post("/api/quizzes",[QuizController::class,"store"]);
+
+Router::notFound();
