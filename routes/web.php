@@ -14,4 +14,5 @@ Router::get('/create_quiz',[HomeController::class,'create_quiz']);
 
 Router::get('/dashboard',[UserController::class,'home']);
 
+
 Router::notFound();

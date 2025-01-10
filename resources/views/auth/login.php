@@ -20,7 +20,7 @@
                 </a>
             </p>
         </div>
-        <form id="login" class="mt-8 space-y-6" action="#" method="POST">
+        <form id="form" class="mt-8 space-y-6" action="#" method="POST">
             <div class="rounded-md shadow-sm -space-y-px">
                 <div>
                     <label for="email" class="sr-only">Email address</label>
