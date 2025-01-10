@@ -22,6 +22,9 @@ class UserController{
     }
     public function login(): void
     {
+        apiResponse([
+            'message' => 'User login successfully',
+        ]);
         $userData = $this->validate([
             'email' => 'string',
             'password' => 'string'
@@ -32,6 +35,9 @@ class UserController{
                 'message' => 'User logged in successfully',
                 'token' => $user->api_token,
                 ]);
-        };
+        } else {
+            apiResponse([
+                'message' => 'User not logged in successfully','']);
+        }
     }
 }

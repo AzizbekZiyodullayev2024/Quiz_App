@@ -1,7 +1,7 @@
 <?php
 
 namespace Src;
-
+use \Src\Middleware\Auth;
 class Router{
     public string|array|int|null|false $currentRoute;
 
@@ -12,6 +12,9 @@ class Router{
 
     public static function runCallbackFunc(string $route, callable|array $callback): void
     {
+        if ($middleware == 'auth'){
+            (new Auth())->handle();
+        }
         if (is_array($callback)) {
             $resourceValue = self::getResource($route);
             if ($resourceValue) {
@@ -57,8 +60,7 @@ class Router{
         return $resourceValue ?: false;
     }
 
-    public static function get($route, $callback): void
-    {
+    public static function get($route, $callback): void{
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             self::runCallbackFunc($route, $callback);
         }
@@ -122,7 +124,7 @@ class Router{
     {
     }
 
-    public static function notFound(string $route = 'api'){
+    public static function notFound(string $route = 'api'): void{
         if(self::isApiCall()){
             apiResponse(['error' => 'Not Found'], 404);
         }

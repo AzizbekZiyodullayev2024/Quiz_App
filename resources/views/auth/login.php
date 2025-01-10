@@ -20,7 +20,7 @@
                 </a>
             </p>
         </div>
-        <form class="mt-8 space-y-6" action="#" method="POST">
+        <form id="form" class="mt-8 space-y-6" action="#" method="POST">
             <div class="rounded-md shadow-sm -space-y-px">
                 <div>
                     <label for="email" class="sr-only">Email address</label>
@@ -41,12 +41,12 @@
                     <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
                         Forgot your password?
                     </a>
-                    <p id="forTest"></p>
+                    <div id="error"></div>
                 </div>
             </div>
 
             <div>
-                <button type="button" onclick="test()"
+                <button type="button" onclick="login()"
                         class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     Sign in
                 </button>
@@ -55,7 +55,25 @@
     </div>
 </div>
 
-<script src="js/main.js" >  </script>
+<script>
+    async function login(){
+
+        let form = document.getElementById("form"),
+            formData = new FormData(form);
+        const {default: apiFetch} = await import('./js/utils/apiFetch.js');
+
+        await apiFetch('./login',{method:'POST',body:formData})
+            .then((data) => {
+                localStorage.setItem('token',data.data.token);
+                window.location.href = '/dashboard';
+            }
+            .catch((error) => {
+                console.error(error.data.errors)
+                Object.keys(error.data.errors).forEach(err => {
+                    document.getElementById('error').innerHTML += `<p class="text-red-500 mt-1" >${error.data.errors[err]}</p>`;
+                })
+            })
+</script>
 
 </body>
 </html>
