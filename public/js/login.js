@@ -1,6 +1,6 @@
 async function login(){
 
-    let form = document.getElementById("form"),
+    let form = document.getElementById("login"),
         formData = new FormData(form);
     const {default: apiFetch} = await import('./js/utils/apiFetch.js');
 
