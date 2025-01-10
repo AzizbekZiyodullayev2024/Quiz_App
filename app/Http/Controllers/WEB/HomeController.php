@@ -15,7 +15,8 @@ class HomeController{
     public function statistics(){
         view('statistics');
     }
-    public function dashboard(){
+    public function dashboard(): void
+    {
         view('dashboard');
     }
     public function create_quiz(){
