@@ -1,30 +1,27 @@
 <?php
 
 namespace Src;
-use \Src\Middleware\Auth;
 class Router{
     public string|array|int|null|false $currentRoute;
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->currentRoute = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     }
 
-    public static function runCallbackFunc(string $route, callable|array $callback): void
+    public static function runCallbackFunc(string $route, callable|array $callback,?string $middleware=null): void
     {
-        if ($middleware == 'auth'){
-            (new Auth())->handle();
-        }
         if (is_array($callback)) {
             $resourceValue = self::getResource($route);
             if ($resourceValue) {
                 $resourceRoute = str_replace('{id}', $resourceValue, $route);
                 if ($resourceRoute == self::getRoute()) {
+                    self::middleware($middleware);
                     (new $callback[0])->{$callback[1]}();
                     exit();
                 }
             }
             if ($route == self::getRoute()) {
+                self::middleware($middleware);
                 (new $callback[0])->{$callback[1]}();
                 exit();
             }
@@ -33,11 +30,13 @@ class Router{
         if ($resourceValue) {
             $resourceRoute = str_replace('{id}', $resourceValue, $route);
             if ($resourceRoute == self::getRoute()) {
+                self::middleware($middleware);
                 $callback($resourceValue);
                 exit();
             }
         }
         if ($route == self::getRoute()) {
+            self::middleware($middleware);
             $callback();
             exit();
         }
@@ -60,9 +59,9 @@ class Router{
         return $resourceValue ?: false;
     }
 
-    public static function get($route, $callback): void{
+    public static function get($route, $callback,?string $middleware=null): void{
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            self::runCallbackFunc($route, $callback);
+            self::runCallbackFunc($route, $callback,$middleware);
         }
     }
 
@@ -128,6 +127,20 @@ class Router{
         if(self::isApiCall()){
             apiResponse(['error' => 'Not Found'], 404);
         }
-        view('404');
+        view('notFound');
     }
+
+    public static function middleware(?string $middleware = null): void{
+        if ($middleware){
+           $middlewareConfig = require '../config/middleware.php';
+           if(is_array($middlewareConfig)){
+               if(array_key_exists($middleware, $middlewareConfig)){
+                   $middlewareClass = $middlewareConfig[$middleware];
+                   (new $middlewareClass)->handle();
+               }
+           }
+        }
+    }
+
+
 }

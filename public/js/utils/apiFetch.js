@@ -1,18 +1,16 @@
-function apiFetch(uri,options={}){
-    const baseUrl = "http://localhost:8080/api",
+function apiFetch(uri, options = {}) {
+    const baseUrl = 'http://localhost:8080/api',
         token = localStorage.getItem('token');
-    const defaultHeaders = {
-        'Authorization': 'Bearer ' + token
-    }
-    if(token){
+    const defaultHeaders = {};
+    if (token) {
         defaultHeaders.Authorization = `Bearer ${token}`;
     }
-    return fetch(`${baseUrl}${uri}`,{
+    return fetch(`${baseUrl}${uri}`, {
         ...options,
-        headers:{...defaultHeaders,...options.headers},
+        headers: { ...defaultHeaders, ...options.headers },
     })
         .then(async response => {
-            if(!response.ok){
+            if (!response.ok) {
                 const error = new Error("HTTP error");
                 error.data = await response.json();
                 throw error;
@@ -21,6 +19,6 @@ function apiFetch(uri,options={}){
         })
         .catch(error => {
             throw error;
-        })
+        });
 }
 export default apiFetch;

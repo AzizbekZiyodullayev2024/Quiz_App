@@ -7,8 +7,7 @@ use App\Traits\Validator;
 class UserController{
     use Validator;
 
-    public function store (): void
-    {
+    public function store (): void {
         $userData = $this->validate([
             'full_name' => 'string',
             'email' => 'string',
@@ -20,11 +19,7 @@ class UserController{
                      'token' => $user->api_token,
                     ], 201);
     }
-    public function login(): void
-    {
-        apiResponse([
-            'message' => 'User login successfully',
-        ]);
+    public function login(): void{
         $userData = $this->validate([
             'email' => 'string',
             'password' => 'string'
@@ -35,9 +30,18 @@ class UserController{
                 'message' => 'User logged in successfully',
                 'token' => $user->api_token,
                 ]);
-        } else {
-            apiResponse([
-                'message' => 'User not logged in successfully','']);
         }
+        apiResponse([
+            'message' => 'User not logged in successfully','']);
+
+    }
+
+    public function show(){
+        apiResponse([
+            'user' => [
+                'name' => 'John Doe',
+                'email' => 'john@doe.com',
+            ]
+        ]);
     }
 }

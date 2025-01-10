@@ -2,7 +2,6 @@
 
 namespace App\Models;
 use PDO;
-
 class DB{
     private string $db_name;
     private string $db_user;
