@@ -20,7 +20,7 @@
                 </a>
             </p>
         </div>
-        <form id="form" class="mt-8 space-y-6" action="#" method="POST">
+        <form onsubmit="login()" id="form" class="mt-8 space-y-6" method="POST">
             <div class="rounded-md shadow-sm -space-y-px">
                 <div>
                     <label for="email" class="sr-only">Email address</label>
@@ -46,7 +46,7 @@
             </div>
 
             <div>
-                <button type="button" onclick="login()"
+                <button type="submit"
                         class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     Sign in
                 </button>
@@ -58,6 +58,7 @@
 <script>
 
     async function login() {
+        event.preventDefault()
         let form = document.getElementById("form"),
             formData = new FormData(form);
         const { default: apiFetch } = await import('./js/utils/apiFetch.js');
@@ -67,7 +68,7 @@
                 window.location.href = '/dashboard';
             })
             .catch((error) => {
-                console.error(error.data.errors);
+                document.getElementById('error').innerHTML = '';
                 Object.keys(error.data.errors).forEach(err => {
                     document.getElementById('error').innerHTML += `<p class="text-red-500 mt-1">${error.data.errors[err]}</p>`;
                 })

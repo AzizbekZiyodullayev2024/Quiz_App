@@ -25,7 +25,7 @@ class Auth{
         if(!$apiToken){
             apiResponse([
                 'message' => 'Unauthorized'
-            ],403);
+            ],401);
         }
         return true;
     }

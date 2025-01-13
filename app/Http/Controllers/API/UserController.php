@@ -32,8 +32,10 @@ class UserController{
                 ]);
         }
         apiResponse([
-            'message' => 'User not logged in successfully','']);
-
+            'errors' => [
+                'message' => 'Email or password is incorrect'
+            ]
+            ],401);
     }
 
     public function show(){
