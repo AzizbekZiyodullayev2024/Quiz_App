@@ -114,8 +114,7 @@ class Router{
         return mb_stripos($_SERVER['REQUEST_URI'], '/api') === 0;
     }
 
-    public static function isTelegram(): bool
-    {
+    public static function isTelegram(): bool{
         return mb_stripos($_SERVER['REQUEST_URI'], '/telegram') === 0;
     }
 
@@ -141,6 +140,5 @@ class Router{
            }
         }
     }
-
 
 }

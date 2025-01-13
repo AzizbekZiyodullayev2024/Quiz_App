@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 use Src\Auth;
 class QuizController{
-    public function store (): void{
+    public function storeQuiz (): void{
         if(Auth::check()){
             $headers = getallheaders();
             $bearer = $headers['Authorization'];
