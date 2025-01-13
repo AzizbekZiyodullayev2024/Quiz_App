@@ -7,7 +7,7 @@ use Src\Router;
 Router::get('/api/users/{id}',[UserController::class,'show'],'auth:api');
 
 // Auth;
-Router::post("/api/register", [UserController::class, "store"]);
+Router::post("/api/register", [UserController::class, "storeUser"]);
 Router::post("/api/login", [UserController::class, "login"]);
 //
 // Quiz;

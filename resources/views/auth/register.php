@@ -57,7 +57,7 @@
             </div>
 
             <div>
-                <button type="button" onclick="store()"
+                <button type="button" onclick="register()"
                         class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     Create Account
                 </button>
@@ -68,24 +68,22 @@
 
 <script>
 
-    async function store() {
+    async function register() {
         let form = document.getElementById("form"),
             formData = new FormData(form);
         const { default: apiFetch } = await import('./js/utils/apiFetch.js');
-
-        await apiFetch('/register', { method: 'POST', body: formData })
-            .then(data => console.log(data))
-            // window.location.href = '/dashboard'
-            .catch((error) => {
-                console.error(error.data.errors);
-                Object.keys(error.data.errors).forEach(err => {
-                    document.getElementById('error').innerHTML += `<p class="text-red-500 mt-1">${error.data.errors[err]}</p>`;
-                });
+        try {
+            const data = await apiFetch('/register', { method: 'POST', body: formData });
+            console.log(data);
+            localStorage.setItem('token', data.token);
+            window.location.href = '/dashboard';
+        } catch (error) {
+            console.error(error.data.errors);
+            Object.keys(error.data.errors).forEach(err => {
+                document.getElementById('error').innerHTML += `<p class="text-red-500 mt-1">${error.data.errors[err]}</p>`;
             });
-            window.location.href = '/dashboard'
-
+        }
     }
 </script>
-
 </body>
 </html>

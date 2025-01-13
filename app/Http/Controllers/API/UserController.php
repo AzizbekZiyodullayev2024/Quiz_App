@@ -7,7 +7,7 @@ use App\Traits\Validator;
 class UserController{
     use Validator;
 
-    public function store (): void {
+    public function storeUser (): void {
         $userData = $this->validate([
             'full_name' => 'string',
             'email' => 'string',

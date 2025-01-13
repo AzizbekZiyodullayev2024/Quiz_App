@@ -56,6 +56,7 @@
 </div>
 
 <script>
+
     async function login() {
         let form = document.getElementById("form"),
             formData = new FormData(form);
