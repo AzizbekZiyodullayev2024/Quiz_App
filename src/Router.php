@@ -26,6 +26,7 @@ class Router{
                 exit();
             }
         }
+
         $resourceValue = self::getResource($route);
         if ($resourceValue) {
             $resourceRoute = str_replace('{id}', $resourceValue, $route);
