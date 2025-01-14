@@ -1,10 +1,13 @@
 async function user() {
-    const {default: apiFetch} = await import('./js/utils/apiFetch.js');
-    await apiFetch('/users/getInfo', {method: 'GET'})
+    const {default: apiFetch} = await import('/js/utils/apiFetch.js');
+    apiFetch('/users/getInfo', {method: 'GET'})
         .then((user) => {
             document.getElementById('userName').innerText = user.data.full_name;
         })
         .catch((error) => {
-            window.location.href="/login"
+            if(error.status==401){
+                window.location.href="/login"
+            }
         });
 }
+user();

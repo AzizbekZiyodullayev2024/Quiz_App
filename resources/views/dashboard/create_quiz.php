@@ -1,47 +1,11 @@
-<?php require '../resources/views/components/header.php' ?>
+<?php require '../resources/views/components/dashboard/header.php' ?>
 
-<script>
-    async function user() {
-        const {default: apiFetch} = await import('./js/utils/apiFetch.js');
-        await apiFetch('/users/getInfo', {method: 'GET'})
-            .then((user) => {
-                document.getElementById('userName').innerText = user.data.full_name;
-            })
-            .catch((error) => {
-                window.location.href="/login"
-            });
-    }
-    user();
-</script>
+<script src="/js/utils/getUser.js"></script>
 
 <body class="bg-gray-100">
 <div class="flex min-h-screen">
     <!-- Sidebar -->
-    <aside class="bg-white w-64 min-h-screen flex flex-col shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in fixed md:static z-30" id="sidebar">
-        <div class="p-4 border-b flex items-center justify-between">
-            <h2 class="text-2xl font-bold text-gray-800">Quiz App</h2>
-            <div>
-                <button class="md:hidden text-gray-600" onclick="document.getElementById('sidebar').classList.toggle('-translate-x-full')">
-                    <i class="fas fa-close text-xl"></i>
-                </button>
-            </div>
-        </div>
-        <nav class="flex-grow p-4">
-            <a href="/dashboard" class="block p-3 mb-2 text-gray-800 hover:bg-gray-100 rounded-lg">
-                <i class="fas fa-home mr-2"></i> Dashboard
-            </a>
-            <a href="/dashboard/my_quizzess" class="block p-3 mb-2 text-gray-600 hover:bg-gray-100 rounded-lg">
-                <i class="fas fa-book mr-2"></i> My Quizzes
-            </a>
-            <a href="/dashboard/create_quiz" class="block p-3 mb-2 text-gray-600 bg-gray-100 rounded-lg">
-                <i class="fas fa-plus mr-2"></i> Create Quiz
-            </a>
-            <a href="/dashboard/statistics" class="block p-3 mb-2 text-gray-600 hover:bg-gray-100 rounded-lg">
-                <i class="fas fa-chart-bar mr-2"></i> Statistics
-            </a>
-        </nav>
-    </aside>
-
+        <?php require '../resources/views/components/dashboard/sidebar.php' ?>
     <!-- Main Content -->
     <div class="flex-1">
         <!-- Top Navigation -->
@@ -51,17 +15,13 @@
                     <i class="fas fa-bars text-xl"></i>
                 </button>
                 <div class="flex items-center space-x-4">
-
                     <div class="flex items-center space-x-2">
                         <img src="https://via.placeholder.com/40" alt="Profile" class="w-10 h-10 rounded-full">
-
                         <span class="text-gray-700 font-medium" id="userName">
-
                     </div>
                 </div>
             </div>
         </header>
-
         <!-- Content -->
         <main class="p-6">
             <div class="min-h-screen bg-gray-100">

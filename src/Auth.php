@@ -1,4 +1,5 @@
 <?php
+
 namespace Src;
 use App\Models\DB;
 use App\Models\User;
@@ -8,8 +9,8 @@ class Auth{
         $headers = getallheaders();
         if(!isset($headers['Authorization'])){
             apiResponse([
-                'message' => 'Unauthorized'
-            ]);
+                'errors' => ['message' => 'Unauthorized']
+                ]);
         }
         if(!str_starts_with($headers['Authorization'], 'Bearer ')){
             apiResponse([
@@ -44,5 +45,4 @@ class Auth{
         $user = new User();
         return $user->getUserById($token->user_id);
     }
-
 }
