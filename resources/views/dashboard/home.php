@@ -1,17 +1,18 @@
 <?php require '../resources/views/components/header.php' ?>
-    <script>
-        async function user() {
-            const {default: apiFetch} = await import('./js/utils/apiFetch.js');
-            await apiFetch('/users/getInfo', {method: 'GET'})
-                .then((user) => {
-                    document.getElementById('userName').innerText = user.data.full_name;
-                })
-                .catch((error) => {
-                    window.location.href="/login"
-                });
-        }
-        user();
-    </script>
+
+<script>
+    async function user() {
+        const {default: apiFetch} = await import('./js/utils/apiFetch.js');
+        await apiFetch('/users/getInfo', {method: 'GET'})
+            .then((user) => {
+                document.getElementById('userName').innerText = user.data.full_name;
+            })
+            .catch((error) => {
+                window.location.href="/login"
+            });
+    }
+    user();
+</script>
 <body class="bg-gray-100">
     <div class="min-h-screen flex">
         <!-- Sidebar -->
@@ -51,7 +52,9 @@
                     <div class="flex items-center space-x-4">
                         <div class="flex items-center space-x-2">
                             <img src="https://via.placeholder.com/40" alt="Profile" class="w-10 h-10 rounded-full">
+
                             <span class="text-gray-700 font-medium" id="userName">
+
                         </div>
 
                     </div>

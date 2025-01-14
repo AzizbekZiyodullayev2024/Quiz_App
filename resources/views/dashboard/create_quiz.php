@@ -1,13 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Quiz - Dashboard</title>
-    <script src="add-quiz.js"></script>
-    <link rel="stylesheet" href="./css/tailwind.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
+<?php require '../resources/views/components/header.php' ?>
+
+<script>
+    async function user() {
+        const {default: apiFetch} = await import('./js/utils/apiFetch.js');
+        await apiFetch('/users/getInfo', {method: 'GET'})
+            .then((user) => {
+                document.getElementById('userName').innerText = user.data.full_name;
+            })
+            .catch((error) => {
+                window.location.href="/login"
+            });
+    }
+    user();
+</script>
+
 <body class="bg-gray-100">
 <div class="flex min-h-screen">
     <!-- Sidebar -->
@@ -48,7 +54,9 @@
 
                     <div class="flex items-center space-x-2">
                         <img src="https://via.placeholder.com/40" alt="Profile" class="w-10 h-10 rounded-full">
-                        <span class="text-gray-700 font-medium">John Doe</span>
+
+                        <span class="text-gray-700 font-medium" id="userName">
+
                     </div>
                 </div>
             </div>
