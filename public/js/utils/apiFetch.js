@@ -11,8 +11,11 @@ function apiFetch(uri, options = {}) {
     })
         .then(async response => {
             if (!response.ok) {
-                if(response.status === 401 && document.location.pathname !== '/login'){
-                    window.location.href = '/login'
+                if(response.status === 401){
+                    if(document.location.pathname == '/login' || document.location.pathname == '/register'){
+                    }else{
+                        window.location.href = '/login'
+                    }
                 }
                 const error = new Error("HTTP error");
                 error.data = await response.json();
