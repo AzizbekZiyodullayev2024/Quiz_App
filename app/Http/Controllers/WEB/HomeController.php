@@ -10,17 +10,17 @@ class HomeController{
         view('auth/login');
     }
     public function my_quizzes(){
-        view('my_quizzes');
+        view('/dashboard/my_quizzes');
     }
     public function statistics(){
-        view('statistics');
+        view('/dashboard/statistics');
     }
     public function dashboard(): void
     {
         view('dashboard');
     }
     public function create_quiz(){
-        view('create_quiz');
+        view('/dashboard/create_quiz');
     }
     public function register(){
         view('auth/register');

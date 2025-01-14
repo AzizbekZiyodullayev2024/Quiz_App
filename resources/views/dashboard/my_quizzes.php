@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Quizzes - Dashboard</title>
-    <link rel="stylesheet" href="./css/tailwind.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
+<?php require '../resources/views/components/header.php' ?>
 <body class="bg-gray-100">
 <div class="flex min-h-screen">
     <!-- Sidebar -->
@@ -23,13 +15,13 @@
             <a href="/dashboard" class="block p-3 mb-2 text-gray-800 hover:bg-gray-100 rounded-lg">
                 <i class="fas fa-home mr-2"></i> Dashboard
             </a>
-            <a href="/my_quizzess" class="block p-3 mb-2 text-gray-600 bg-gray-100 rounded-lg">
+            <a href="/dashboard/my_quizzess" class="block p-3 mb-2 text-gray-600 bg-gray-100 rounded-lg">
                 <i class="fas fa-book mr-2"></i> My Quizzes
             </a>
-            <a href="/create_quiz" class="block p-3 mb-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+            <a href="/dashboard/create_quiz" class="block p-3 mb-2 text-gray-600 hover:bg-gray-100 rounded-lg">
                 <i class="fas fa-plus mr-2"></i> Create Quiz
             </a>
-            <a href="/statistics" class="block p-3 mb-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+            <a href="/dashboard/statistics" class="block p-3 mb-2 text-gray-600 hover:bg-gray-100 rounded-lg">
                 <i class="fas fa-chart-bar mr-2"></i> Statistics
             </a>
         </nav>
