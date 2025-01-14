@@ -10,11 +10,11 @@
         async function user() {
             const {default: apiFetch} = await import('./js/utils/apiFetch.js');
             await apiFetch('/users/getInfo', {method: 'GET'})
-                .then((data) => {
-                    console.log(data)
+                .then((user) => {
+                    document.getElementById('userName').innerText = user.data.full_name;
                 })
                 .catch((error) => {
-                    // window.location.href="/login"
+                    window.location.href="/login"
                 });
         }
         user();
@@ -60,7 +60,7 @@
 
                         <div class="flex items-center space-x-2">
                             <img src="https://via.placeholder.com/40" alt="Profile" class="w-10 h-10 rounded-full">
-                            <span class="text-gray-700 font-medium">Azizbek Ziyodullayev</span>
+                            <span class="text-gray-700 font-medium" id="userName">Azizbek Ziyodullayev</span>
                         </div>
 
                     </div>
