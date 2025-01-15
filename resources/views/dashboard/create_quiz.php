@@ -1,7 +1,7 @@
 <?php require '../resources/views/components/dashboard/header.php' ?>
 
 <script src="/js/utils/getUser.js"></script>
-
+<script src="/js/dashboard/add-quiz.js"></script>
 <body class="bg-gray-100">
 <div class="flex min-h-screen">
     <!-- Sidebar -->
@@ -33,7 +33,7 @@
                     </div>
 
                     <!-- Main Form -->
-                    <form class="space-y-4" id="quizForm">
+                    <form class="space-y-4" id="quizForm" onsubmit="createQuiz()">
                         <!-- Quiz Details Section -->
                         <div class="bg-white p-6 rounded-lg shadow-md">
                             <h3 class="text-xl font-semibold text-gray-800 mb-4">Quiz Details</h3>
@@ -101,8 +101,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <div id="error">Azizbek</div>
 
+                        </div>
                         <!-- Submit Button -->
                         <div class="flex justify-end">
                             <button type="submit"
@@ -116,5 +117,25 @@
         </main>
     </div>
 </div>
+
+<script>
+    async function createQuiz() {
+        event.preventDefault()
+        let form = document.getElementById("quizForm"),
+            formData = new FormData(form);
+        const { default: apiFetch } = await import('/js/utils/apiFetch.js');
+        await apiFetch('/quizzes',{method:'POST',body:formData})
+            .then((data) => {
+                console.log(data)
+            })
+            .catch((error) => {
+                document.getElementById('error').innerHTML = '';
+                Object.keys(error.data.errors).forEach(err => {
+                    document.getElementById('error').innerHTML += `<p class="text-red-500 mt-1">${error.data.errors[err]}</p>`;
+                })
+            });
+    }
+</script>
+
 </body>
 </html>

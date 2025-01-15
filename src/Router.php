@@ -66,10 +66,10 @@ class Router{
         }
     }
 
-    public static function post($route, $callback): void
+    public static function post(string $route,array $callback,?string $middleware=null): void
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            self::runCallbackFunc($route, $callback);
+            self::runCallbackFunc($route, $callback,$middleware);
         }
     }
 
