@@ -18,7 +18,7 @@
         },
         {
             'name':'My Quizzes',
-            'uri':'/dashboard/my_quizzess',
+            'uri':'/dashboard/quizzes',
             'icon':'fas fa-book mr-2'
         },
         {

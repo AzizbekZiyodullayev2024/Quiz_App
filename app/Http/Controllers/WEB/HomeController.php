@@ -9,8 +9,8 @@ class HomeController{
     public function login(){
         view('auth/login');
     }
-    public function my_quizzes(){
-        view('/dashboard/my_quizzes');
+    public function quizzes(){
+        view('/dashboard/quizzes');
     }
     public function statistics(){
         view('/dashboard/statistics');
@@ -19,10 +19,12 @@ class HomeController{
     {
         view('dashboard');
     }
-    public function create_quiz(){
+    public function create_quiz(): void
+    {
         view('/dashboard/create_quiz');
     }
-    public function register(){
+    public function register(): void
+    {
         view('auth/register');
     }
     public function about(): void{
