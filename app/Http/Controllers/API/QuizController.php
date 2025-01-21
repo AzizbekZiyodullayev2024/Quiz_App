@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\DB;
 use App\Models\Option;
 use App\Models\Question;
 use App\Models\Quiz;
@@ -13,7 +14,13 @@ class QuizController
     use Validator;
     public function index(){
         $quizzes = (new Quiz())->getUserById(Auth::user()->id);
-        apiResponse(['quizzes' => $quizzes], true);
+        apiResponse(['quizzes' => $quizzes]);
+    }
+    public function destroy (int $quizId): void{
+        $quiz = new Quiz();
+        $quiz->delete($quizId);
+        apiResponse([
+            'message' => 'Quiz deleted successfully']);
     }
     public function take_quiz(): void{
         view('/quiz/take_quiz');

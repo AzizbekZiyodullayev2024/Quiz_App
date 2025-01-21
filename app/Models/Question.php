@@ -14,4 +14,7 @@ class Question extends DB{
         ]);
         return $this->conn->lastInsertId();
     }
+    public function getQuestionCountById(int $quizId){
+        $query = "SELECT count(id) as total FROM questions WHERE quiz_id = :quiz_id";
+    }
 }

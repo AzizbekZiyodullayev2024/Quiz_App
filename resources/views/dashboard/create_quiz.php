@@ -126,7 +126,7 @@
         const { default: apiFetch } = await import('/js/utils/apiFetch.js');
         await apiFetch('/quizzes',{method:'POST',body:formData})
             .then((data) => {
-                console.log(data)
+                window.location.href = "/dashboard/quizzes";
             })
             .catch((error) => {
                 document.getElementById('error').innerHTML = '';

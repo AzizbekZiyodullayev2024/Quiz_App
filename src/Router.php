@@ -14,7 +14,7 @@ class Router{
                 $resourceRoute = str_replace('{id}', $resourceValue, $route);
                 if ($resourceRoute == self::getRoute()) {
                     self::middleware($middleware);
-                    (new $callback[0])->{$callback[1]}();
+                    (new $callback[0])->{$callback[1]}($resourceValue);
                     exit();
                 }
             }
@@ -24,7 +24,6 @@ class Router{
                 exit();
             }
         }
-
         $resourceValue = self::getResource($route);
         if ($resourceValue) {
             $resourceRoute = str_replace('{id}', $resourceValue, $route);
@@ -84,10 +83,10 @@ class Router{
         }
     }
 
-    public static function delete($route, $callback): void
+    public static function delete($route, $callback, ?string $middleware=null): void
     {
         if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-            self::extracted($route, $callback);
+            self::runCallbackFunc($route, $callback,$middleware);
         }
     }
 
@@ -96,7 +95,7 @@ class Router{
         $resourceValue = self::getResource($route);
         if ($resourceValue) {
             $resourceRoute = str_replace('{id}', $resourceValue, $route);
-            if ($resourceRoute == self::getResource()) {
+            if ($resourceRoute == self::getResource($route)) {
                 $callback($resourceValue);
                 exit();
             }

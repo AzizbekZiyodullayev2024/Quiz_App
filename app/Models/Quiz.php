@@ -6,7 +6,14 @@ use App\Models\DB;
 
 class Quiz extends DB{
 
-    public function getUserById(int $userId){
+    public function delete($quizId): bool{
+        $query = "DELETE FROM quizzes WHERE id = :quizId";
+        $stmt = $this->conn->prepare($query);
+        return $stmt->execute([
+            "quizId" => $quizId]
+        );
+    }
+    public function getUserById(int $userId): bool|array{
         $query = "SELECT * FROM quizzes WHERE user_id = :userId";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([

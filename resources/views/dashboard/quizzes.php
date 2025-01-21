@@ -19,7 +19,7 @@
                 <div class="flex items-center space-x-4">
 
                     <div class="flex items-center space-x-2">
-                        <img src="https://via.placeholder.com/40" alt="Profile" class="w-10 h-10 rounded-full">
+<!--                        <img src="https://via.placeholder.com/40" alt="Profile" class="w-10 h-10 rounded-full">-->
 
                         <span class="text-gray-700 font-medium" id="userName">
 
@@ -66,14 +66,26 @@
                     </select>
                 </div>
             </div>
-
             <!-- Quiz Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Quiz Card 1 -->
-                <div class="bg-white rounded-lg shadow-sm p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="quizList">
+            </div>
+        </main>
+    </div>
+</div>
+</body>
+<script>
+    async function quizzes() {
+        const { default: apiFetch } = await import('/js/utils/apiFetch.js');
+        quizList = document.getElementById('quizList')
+        await apiFetch('/quizzes',{method:'GET'})
+            .then((data) => {
+                console.log(data.quizzes)
+                data.quizzes.forEach((quiz)=>{
+                    quizList.innerHTML += `
+                                    <div class="bg-white rounded-lg shadow-sm p-6">
                     <div class="flex justify-between items-start mb-4">
                         <div>
-                            <h3 class="text-lg font-semibold">Basic Mathematics</h3>
+                            <h3 class="text-lg font-semibold">${quiz.title}</h3>
                             <p class="text-gray-500 text-sm">Mathematics</p>
                         </div>
                         <div class="dropdown">
@@ -84,10 +96,10 @@
                             </button>
                         </div>
                     </div>
-                    <p class="text-gray-600 mb-4">Test basic arithmetic and algebraic concepts</p>
+                    <p class="text-gray-600 mb-4">${quiz.description}</p>
                     <div class="flex justify-between items-center mb-4">
                         <span class="text-sm text-gray-500">10 Questions</span>
-                        <span class="text-sm text-gray-500">15 minutes</span>
+                        <span class="text-sm text-gray-500">${quiz.time_limit} minutes</span>
                     </div>
                     <div class="mb-4">
                         <div class="w-full bg-gray-200 rounded-full h-2">
@@ -98,22 +110,30 @@
                     <div class="flex justify-between">
                         <button class="text-indigo-600 hover:text-indigo-800">Edit</button>
                         <button class="text-green-600 hover:text-green-800">View Results</button>
-                        <button class="text-red-600 hover:text-red-800">Delete</button>
+                        <button class="text-red-600 hover:text-red-800" onclick="deleteQuiz(${quiz.id})" >Delete</button>
                     </div>
                 </div>
-
-                <!-- Quiz Card 2 -->
-                <div class="bg-white rounded-lg shadow-sm p-6">
-                    <!-- Similar structure to Quiz Card 1 -->
-                </div>
-
-                <!-- Quiz Card 3 -->
-                <div class="bg-white rounded-lg shadow-sm p-6">
-                    <!-- Similar structure to Quiz Card 1 -->
-                </div>
-            </div>
-        </main>
-    </div>
-</div>
-</body>
+`
+                })
+            })
+            .catch((error) => {
+                alert("Internetinga qarasang bo'lmaydimi?")
+                })
+            }
+    quizzes()
+    function deleteQuiz(id){
+        if(confirm("Are you sure")){
+            async function deleteQuiz() {
+                const { default: apiFetch } = await import('/js/utils/apiFetch.js');
+                await apiFetch('/quizzes/${id}',{method:'DELETE'})
+                    .then((data) => {
+                        window.location.reload();
+                    })
+                    .catch((error) => {
+                        alert("Internetinga qarasang bo'lmaydimi?")
+                    });
+            }
+        }
+    }
+</script>
 </html>
