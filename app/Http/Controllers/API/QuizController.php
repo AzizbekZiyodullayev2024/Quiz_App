@@ -57,5 +57,6 @@ class QuizController
                 $option->create($question_id, $optionItem, $correct == $key);
             }
         }
+//        apiResponse(['message'=>"created quiz successfully"],201);
     }
 }

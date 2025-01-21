@@ -120,12 +120,13 @@
 
 <script>
     async function createQuiz() {
-        event.preventDefault()
+        event.preventDefault();
         let form = document.getElementById("quizForm"),
             formData = new FormData(form);
         const { default: apiFetch } = await import('/js/utils/apiFetch.js');
         await apiFetch('/quizzes',{method:'POST',body:formData})
             .then((data) => {
+                alert(data)
                 window.location.href = "/dashboard/quizzes";
             })
             .catch((error) => {
@@ -136,6 +137,5 @@
             });
     }
 </script>
-
 </body>
 </html>
