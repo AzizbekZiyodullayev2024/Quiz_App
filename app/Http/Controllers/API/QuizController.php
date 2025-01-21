@@ -1,16 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\API;
-
 use App\Models\DB;
 use App\Models\Option;
 use App\Models\Question;
 use App\Models\Quiz;
 use App\Traits\Validator;
 use Src\Auth;
-
-class QuizController
-{
+class QuizController{
     use Validator;
     public function index(){
         $quizzes = (new Quiz())->getUserById(Auth::user()->id);
@@ -25,13 +22,10 @@ class QuizController
     public function take_quiz(): void{
         view('/quiz/take_quiz');
     }
-
     public function create_quiz(): void{
         view('/dashboard/create_quiz');
     }
-
-    public function store(): void
-    {
+    public function store(): void{
         $quizItems = $this->validate([
             'title' => 'string',
             'description' => 'string',
@@ -57,6 +51,6 @@ class QuizController
                 $option->create($question_id, $optionItem, $correct == $key);
             }
         }
-//        apiResponse(['message'=>"created quiz successfully"],201);
+        apiResponse(['message'=>"created quiz successfully"],201);
     }
 }
