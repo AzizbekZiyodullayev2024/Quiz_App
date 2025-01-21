@@ -3,11 +3,9 @@
 namespace Src;
 class Router{
     public string|array|int|null|false $currentRoute;
-
     public function __construct(){
         $this->currentRoute = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     }
-
     public static function runCallbackFunc(string $route, callable|array $callback,?string $middleware=null): void
     {
         if (is_array($callback)) {
@@ -65,7 +63,6 @@ class Router{
             self::runCallbackFunc($route, $callback,$middleware);
         }
     }
-
     public static function post(string $route,array $callback,?string $middleware=null): void
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {

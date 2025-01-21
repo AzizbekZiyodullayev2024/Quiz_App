@@ -10,7 +10,7 @@ class HomeController{
         view('auth/login');
     }
     public function quizzes(){
-        view('/dashboard/quizzes');
+        view('/quiz/quizzes');
     }
     public function statistics(){
         view('/dashboard/statistics');
