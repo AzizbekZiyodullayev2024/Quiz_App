@@ -7,7 +7,6 @@ use Src\Auth;
 
 class UserController{
     use Validator;
-
     public function storeUser (): void {
         $userData = $this->validate([
             'full_name' => 'string',
