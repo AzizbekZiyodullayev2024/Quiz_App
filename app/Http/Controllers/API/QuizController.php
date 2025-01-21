@@ -11,6 +11,10 @@ use Src\Auth;
 class QuizController
 {
     use Validator;
+    public function index(){
+        $quizzes = (new Quiz())->getUserById(Auth::user()->id);
+        apiResponse(['quizzes' => $quizzes], true);
+    }
     public function take_quiz(): void{
         view('/quiz/take_quiz');
     }

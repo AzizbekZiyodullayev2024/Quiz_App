@@ -5,6 +5,16 @@ namespace App\Models;
 use App\Models\DB;
 
 class Quiz extends DB{
+
+    public function getUserById(int $userId){
+        $query = "SELECT * FROM quizzes WHERE user_id = :userId";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([
+            "userId" => $userId
+        ]);
+        return $stmt->fetchAll();
+    }
+
     public function create(int $userId,string $title,string $description,int $timeLimit): int{
         $query = "INSERT INTO quizzes (user_id,title, description,time_limit,created_at,updated_at) 
                    VALUES(:user_id,:title,:description,:time_limit,NOW(),NOW())";
