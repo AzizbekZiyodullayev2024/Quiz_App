@@ -110,7 +110,7 @@
                     <div class="flex justify-between">
                         <button class="text-indigo-600 hover:text-indigo-800">Edit</button>
                         <button class="text-green-600 hover:text-green-800">View Results</button>
-                        <button class="text-red-600 hover:text-red-800" onclick="deleteQuiz(${quiz.id})" >Delete</button>
+                        <button class="text-red-600 hover:text-red-800" onclick="deleteQuiz(${quiz.id})">Delete</button>
                     </div>
                 </div>
 `
@@ -121,11 +121,10 @@
                 })
             }
     quizzes()
-    function deleteQuiz(id){
+    async function deleteQuiz(id){
         if(confirm("Are you sure")){
-            async function deleteQuiz() {
                 const { default: apiFetch } = await import('/js/utils/apiFetch.js');
-                await apiFetch('/quizzes/${id}',{method:'DELETE'})
+                await apiFetch(`/quizzes/${id}`,{method:'DELETE'})
                     .then((data) => {
                         window.location.reload();
                     })
@@ -133,7 +132,6 @@
                         alert("Internetinga qarasang bo'lmaydimi?")
                     });
             }
-        }
     }
 </script>
 </html>
