@@ -108,7 +108,7 @@
                         <span class="text-sm text-gray-500">75% Completion Rate</span>
                     </div>
                     <div class="flex justify-between">
-                        <button class="text-indigo-600 hover:text-indigo-800">Edit</button>
+                        <a class="text-indigo-600 hover:text-indigo-800" href="/dashboard/quizzes/${quiz.id}/update">Edit</a>
                         <button class="text-green-600 hover:text-green-800">View Results</button>
                         <button class="text-red-600 hover:text-red-800" onclick="deleteQuiz(${quiz.id})">Delete</button>
                     </div>

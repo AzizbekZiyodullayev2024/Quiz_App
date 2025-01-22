@@ -1,11 +1,13 @@
 <?php
-
 namespace App\Models;
-
 use App\Models\DB;
-
 class Quiz extends DB{
-
+    public function find(int $quizId){
+        $query = "SELECT * FROM quizzes WHERE id = :quizId";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute(['quizId' => $quizId]);
+        return $stmt->fetch();
+    }
     public function delete($quizId): bool{
         $query = "DELETE FROM quizzes WHERE id = :quizId";
         $stmt = $this->conn->prepare($query);
@@ -33,5 +35,17 @@ class Quiz extends DB{
             'time_limit' => $timeLimit,
         ]);
         return $this->conn->lastInsertId();
+    }
+
+    public function update(int $quizId, mixed $title, mixed $description, mixed $timeLimit)
+    {
+        $query = "UPDATE quizzes SET title = :title, description = :description, time_limit = :timeLimit WHERE id = :quizId";
+        $stmt = $this->conn->prepare($query);
+        return $stmt->execute([
+            ":title" => $title,
+            ":description" => $description,
+            ":timeLimit" => $timeLimit,
+            ":quizId" => $quizId
+        ]);
     }
 }

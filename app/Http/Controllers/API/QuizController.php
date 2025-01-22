@@ -19,11 +19,48 @@ class QuizController{
         apiResponse([
             'message' => 'Quiz deleted successfully']);
     }
+    public function show(int $quizId){
+        $quiz = ((new Quiz())->find($quizId));
+        if($quiz) {
+            $questions = (new Question())->getWithOptions($quizId);
+            $quiz->questions = $questions;
+            apiResponse($quiz);
+        }
+        apiResponse(['errors' => ['message' => 'Quiz not found']],404);
+
+    }
     public function take_quiz(): void{
         view('/quiz/take_quiz');
     }
     public function create_quiz(): void{
         view('/dashboard/create_quiz');
+    }
+    public function update(int $quizId){
+        $quizItems = $this->validate([
+            'title' => 'string',
+            'description' => 'string',
+            'timeLimit' => 'integer',
+            'questions' => 'array',
+        ]);
+        $quiz = new Quiz();
+        $question = new Question();
+        $option = new Option();
+        $quiz->update($quizId,
+            $quizItems['title'],
+            $quizItems['description'],
+            $quizItems['timeLimit']
+        );
+        $question->deleteQuestionById($quizId);
+        $questions = $quizItems['questions'];
+
+        foreach ($questions as $questionItem) {
+            $question_id = $question->create($quizId, $questionItem['quiz']);
+            $correct = $questionItem['correct'];
+            foreach ($questionItem['options'] as $key => $optionItem) {
+                $option->create($question_id, $optionItem, $correct == $key);
+            }
+        }
+        apiResponse(['message' => 'Quiz updated successfully']);
     }
     public function store(): void{
         $quizItems = $this->validate([

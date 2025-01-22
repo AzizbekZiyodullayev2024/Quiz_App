@@ -20,6 +20,9 @@ class HomeController{
     public function create_quiz(): void{
         view('/dashboard/create_quiz');
     }
+    public function update_quiz(): void{
+        view('/dashboard/update-quiz');
+    }
     public function register(): void{
         view('auth/register');
     }
