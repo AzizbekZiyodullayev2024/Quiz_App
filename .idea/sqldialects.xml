@@ -4,6 +4,7 @@
     <file url="file://$PROJECT_DIR$/app/Models/Option.php" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/app/Models/Question.php" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/app/Models/Quiz.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/app/Models/Result.php" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/app/Models/User.php" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/app/Traits/HasApiTokens.php" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/Auth.php" dialect="GenericSQL" />
