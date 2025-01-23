@@ -11,16 +11,13 @@ Router::post("/api/register", [UserController::class, "storeUser"]);
 Router::post("/api/login", [UserController::class, "login"]);
 // Quiz;
 Router::post("/api/quizzes",[QuizController::class,"store"],'auth:api');
-Router::get("/api/quizzes",[QuizController::class,"index"],'auth:api');
 Router::delete("/api/quizzes/{id}",[QuizController::class,"destroy"],'auth:api');
-
 Router::put("/api/quizzes/{id}",[QuizController::class,"update"],'auth:api');
-
+// QuizGet
+Router::get("/api/quizzes",[QuizController::class,"index"],'auth:api');
 Router::get("/api/quizzes/{id}",[QuizController::class,"show"],'auth:api');
 Router::get("/api/quizzes/{id}/getByUniqueValue",[QuizController::class,"showByUniqueValue"],'auth:api');
-
 //Result
 Router::post("/api/results",[ResultController::class,"store"],'auth:api');
-
 //NotFound;
 Router::notFound();

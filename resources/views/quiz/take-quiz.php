@@ -6,7 +6,6 @@
     <title>Take Quiz - Quiz Platform</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
 <body class="flex flex-col min-h-screen bg-gray-100">
 <!-- Navigation -->
 <script src="/js/utils/getUser.js"></script>
@@ -27,7 +26,6 @@
         </div>
     </div>
 </nav>
-
 <!-- Main Content -->
 <main class="flex-grow container mx-auto px-4 py-8">
 
@@ -152,7 +150,6 @@
 </footer>
 
 <!-- Quiz JavaScript -->
-
 <script>
     async function getQuizItems() {
         const { default: apiFetch } = await import('/js/utils/apiFetch.js');
@@ -172,7 +169,6 @@
     }
     getQuizItems();
 </script>
-
 <script src="/js/main/take-quiz.js"></script>
 </body>
 </html>

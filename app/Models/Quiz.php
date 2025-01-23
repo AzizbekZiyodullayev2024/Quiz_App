@@ -22,7 +22,7 @@ class Quiz extends DB{
             ":quizId" => $quizId
             ]);
     }
-    public function getUserById(int $userId): bool|array{
+    public function getUserById(int $userId): bool|array {
         $query = "SELECT * FROM quizzes WHERE user_id = :userId";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([

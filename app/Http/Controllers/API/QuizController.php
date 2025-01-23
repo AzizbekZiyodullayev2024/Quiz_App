@@ -7,6 +7,7 @@ use App\Models\Question;
 use App\Models\Quiz;
 use App\Traits\Validator;
 use Src\Auth;
+
 class QuizController{
     use Validator;
     public function index(){
@@ -19,7 +20,7 @@ class QuizController{
         apiResponse([
             'message' => 'Quiz deleted successfully']);
     }
-    public function show(int $quizId): void{
+    public function show (int $quizId): void {
         $quiz = ((new Quiz())->find($quizId));
         if($quiz) {
             $questions = (new Question())->getWithOptions($quizId);
@@ -28,14 +29,15 @@ class QuizController{
         }
         apiResponse(['errors' => ['message' => 'Quiz not found']],404);
     }
-    public function showByUniqueValue (string $uniqueValue): void{
+    public function showByUniqueValue (string $uniqueValue): void
+    {
         $quiz = ((new Quiz())->findByUniqueValue($uniqueValue));
-        if($quiz) {
+        if ($quiz) {
             $questions = (new Question())->getWithOptions($quiz->id);
             $quiz->questions = $questions;
             apiResponse($quiz);
         }
-        apiResponse(['errors' => ['message' => 'Quiz not found']],404);
+        apiResponse(['errors' => ['message' => 'Quiz not found']], 404);
     }
     public function create_quiz(): void{
         view('/dashboard/create_quiz');

@@ -5,9 +5,7 @@
 <body class="bg-gray-100">
 <div class="flex min-h-screen">
     <!-- Sidebar -->
-
         <?php require '../resources/views/components/dashboard/sidebar.php' ?>
-
     <!-- Main Content -->
     <div class="flex-1">
         <!-- Top Navigation -->
@@ -17,17 +15,13 @@
                     <i class="fas fa-bars text-xl"></i>
                 </button>
                 <div class="flex items-center space-x-4">
-
                     <div class="flex items-center space-x-2">
 <!--                        <img src="https://via.placeholder.com/40" alt="Profile" class="w-10 h-10 rounded-full">-->
-
                         <span class="text-gray-700 font-medium" id="userName">
-
                     </div>
                 </div>
             </div>
         </header>
-
         <!-- Content -->
         <main class="p-6">
             <!-- Header Section -->
@@ -51,7 +45,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Search and Filter Section -->
             <div class="bg-white p-4 rounded-lg shadow-sm mb-6">
                 <div class="flex flex-wrap gap-4">
@@ -74,19 +67,36 @@
 </div>
 </body>
 <script>
+    async function getQuiz() {
+        const { default: apiFetch } = await import('/js/utils/apiFetch.js');
+        await apiFetch(`/quizzes/`,{method:'GET'})
+            .then((data) => {
+                document.getElementById('title').innerText = data.title;
+                document.getElementById('description').innerText = data.description;
+                document.getElementById('time-taken').innerText = data.time_limit + " : 00";
+            })
+            .catch((error) => {
+                document.getElementById('error').innerHTML = '';
+                Object.keys(error.data.errors).forEach(err => {
+                    document.getElementById('error').innerHTML +=
+                        `<p class="text-red-500 mt-1">${error.data.errors[err]}</p>`;
+                });
+            });
+    }
+    getQuiz();
+</script>
+<script>
     async function quizzes() {
         const { default: apiFetch } = await import('/js/utils/apiFetch.js');
         quizList = document.getElementById('quizList')
         await apiFetch('/quizzes',{method:'GET'})
             .then((data) => {
-                console.log(data.quizzes)
                 data.quizzes.forEach((quiz)=>{
                     quizList.innerHTML += `
                                     <div class="bg-white rounded-lg shadow-sm p-6">
                     <div class="flex justify-between items-start mb-4">
                         <div>
                             <h3 class="text-lg font-semibold">${quiz.title}</h3>
-                            <p class="text-gray-500 text-sm">Mathematics</p>
                         </div>
                         <div class="dropdown">
                             <button class="p-2 hover:bg-gray-100 rounded-full">
@@ -98,7 +108,7 @@
                     </div>
                     <p class="text-gray-600 mb-4">${quiz.description}</p>
                     <div class="flex justify-between items-center mb-4">
-                        <span class="text-sm text-gray-500">10 Questions</span>
+                        <span class="text-sm text-gray-500">Questions</span>
                         <span class="text-sm text-gray-500">${quiz.time_limit} minutes</span>
                     </div>
                     <div class="mb-4">

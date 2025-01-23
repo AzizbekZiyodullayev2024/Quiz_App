@@ -1,5 +1,3 @@
-
-
 let startBtn = document.getElementById('start-btn')
 startBtn.addEventListener('click',()=> {
     async function getQuizItems() {
