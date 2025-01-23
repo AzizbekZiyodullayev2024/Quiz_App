@@ -29,9 +29,6 @@ class QuizController{
         apiResponse(['errors' => ['message' => 'Quiz not found']],404);
 
     }
-    public function take_quiz(): void{
-        view('/quiz/take_quiz');
-    }
     public function create_quiz(): void{
         view('/dashboard/create_quiz');
     }

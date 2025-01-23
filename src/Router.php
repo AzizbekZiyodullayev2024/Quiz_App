@@ -125,7 +125,7 @@ class Router{
         if(self::isApiCall()){
             apiResponse(['error' => 'Not Found'], 404);
         }
-        view('notFound');
+        view('errors/notFound');
     }
 
     public static function middleware(?string $middleware = null): void{

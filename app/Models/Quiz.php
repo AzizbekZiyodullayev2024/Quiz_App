@@ -6,15 +6,21 @@ class Quiz extends DB{
     public function find(int $quizId){
         $query = "SELECT * FROM quizzes WHERE id = :quizId";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute(['quizId' => $quizId]);
+        $stmt->execute([':quizId' => $quizId]);
+        return $stmt->fetch();
+    }
+    public function findByUniqueValue(string $uniqueValue){
+        $query = "SELECT * FROM quizzes WHERE unique_value = :uniqueValue";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([':uniqueValue' => $uniqueValue]);
         return $stmt->fetch();
     }
     public function delete($quizId): bool{
         $query = "DELETE FROM quizzes WHERE id = :quizId";
         $stmt = $this->conn->prepare($query);
         return $stmt->execute([
-            "quizId" => $quizId]
-        );
+            ":quizId" => $quizId
+            ]);
     }
     public function getUserById(int $userId): bool|array{
         $query = "SELECT * FROM quizzes WHERE user_id = :userId";

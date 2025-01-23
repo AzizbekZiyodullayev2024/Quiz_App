@@ -2,6 +2,7 @@
 function view (string $page, array $data = []){
     extract($data);
     require 'resources/views/' . $page . '.php';
+    exit();
 }
 function redirect (string $url){
     header('Location: ' . $url);
