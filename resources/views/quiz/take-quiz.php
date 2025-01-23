@@ -6,6 +6,7 @@
     <title>Take Quiz - Quiz Platform</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="flex flex-col min-h-screen bg-gray-100">
 <!-- Navigation -->
 <script src="/js/utils/getUser.js"></script>
@@ -32,8 +33,8 @@
 
     <div id="start-card" class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
         <div class="text-center">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">Quiz Title</h2>
-            <p class="text-xl text-gray-700 mb-6">JavaScript Fundamentals Quiz</p>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4" id="title" >Quiz Title</h2>
+            <p class="text-xl text-gray-700 mb-6" id="description" >JavaScript Fundamentals Quiz</p>
 
             <div class="flex justify-center space-x-12 mb-8">
                 <div class="text-center">
@@ -151,6 +152,27 @@
 </footer>
 
 <!-- Quiz JavaScript -->
+
+<script>
+    async function getQuizItems() {
+        const { default: apiFetch } = await import('/js/utils/apiFetch.js');
+        await apiFetch(`/quizzes/<?php ; echo $uniqueValue?>/getByUniqueValue`,{method:'GET'})
+            .then((data) => {
+                document.getElementById('title').innerText = data.title;
+                document.getElementById('description').innerText = data.description;
+                document.getElementById('time-taken').innerText = data.time_limit + " : 00";
+            })
+            .catch((error) => {
+                document.getElementById('error').innerHTML = '';
+                Object.keys(error.data.errors).forEach(err => {
+                    document.getElementById('error').innerHTML +=
+                        `<p class="text-red-500 mt-1">${error.data.errors[err]}</p>`;
+                });
+            });
+    }
+    getQuizItems();
+</script>
+
 <script src="/js/main/take-quiz.js"></script>
 </body>
 </html>

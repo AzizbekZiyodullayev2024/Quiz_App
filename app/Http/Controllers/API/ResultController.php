@@ -21,10 +21,8 @@ class ResultController{
                 Auth::user()->id,
                 $quiz->id,
                 $quiz->time_limit);
-            $questions = (new Question())->getWithOptions($quiz->id);
             apiResponse([
                 'result' => 'Result stored successfully',
-                'questions' => $questions
             ]);
         }
         apiResponse(['errors' => [

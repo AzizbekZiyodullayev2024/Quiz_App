@@ -1,5 +1,21 @@
+
+
 let startBtn = document.getElementById('start-btn')
 startBtn.addEventListener('click',()=> {
+    async function getQuizItems() {
+        const { default: apiFetch } = await import('./js/utils/apiFetch.js');
+        await apiFetch('/login',{method:'POST',body:formData})
+            .then((data) => {
+                localStorage.setItem('token', data.token);
+                window.location.href = '/dashboard';
+            })
+            .catch((error) => {
+                document.getElementById('error').innerHTML = '';
+                Object.keys(error.data.errors).forEach(err => {
+                    document.getElementById('error').innerHTML += `<p class="text-red-500 mt-1">${error.data.errors[err]}</p>`;
+                })
+            });
+    }
     let startQuizContainer = document.getElementById('start-card')
     startQuizContainer.classList.add('hidden')
     document.getElementById('questionContainer').classList.remove('hidden')
