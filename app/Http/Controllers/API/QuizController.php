@@ -76,6 +76,7 @@ class QuizController{
             'timeLimit' => 'integer',
             'questions' => 'array',
         ]);
+        dd($quizItems);
         $quizTitle = $quizItems['title'];
         $quizDescription = $quizItems['description'];
         $timeLimit = $quizItems['timeLimit'];

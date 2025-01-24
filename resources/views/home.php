@@ -35,7 +35,6 @@
     </div>
 </nav>
 
-
 <main>
     <!-- Hero Section -->
     <div class="bg-white">
