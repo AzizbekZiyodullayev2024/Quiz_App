@@ -32,14 +32,15 @@ class Quiz extends DB{
     }
 
     public function create(int $userId,string $title,string $description,int $timeLimit): int{
-        $query = "INSERT INTO quizzes (user_id,title, description,time_limit,created_at,updated_at) 
-                   VALUES(:user_id,:title,:description,:time_limit,NOW(),NOW())";
+        $query = "INSERT INTO quizzes (unique_value,user_id,title, description,time_limit,created_at,updated_at) 
+                   VALUES(:uniqueValue,:user_id,:title,:description,:time_limit,NOW(),NOW())";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([
-            'user_id' => $userId,
-            'title' => $title,
-            'description' => $description,
-            'time_limit' => $timeLimit,
+            ':uniqueValue' => uniqid(),
+            ':user_id' => $userId,
+            ':title' => $title,
+            ':description' => $description,
+            ':time_limit' => $timeLimit,
         ]);
         return $this->conn->lastInsertId();
     }
