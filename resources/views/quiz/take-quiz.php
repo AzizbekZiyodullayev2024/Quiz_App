@@ -9,7 +9,6 @@
 <body class="flex flex-col min-h-screen bg-gray-100">
 <!-- Navigation -->
 <script src="/js/utils/getUser.js"></script>
-<script src="/js/dashboard/getUserInfo.js"></script>
 <div class="flex flex-col min-h-screen bg-gray-100">
     <!-- Navigation -->
     <nav class="bg-white shadow-lg">
@@ -165,8 +164,9 @@
 
     <!-- Quiz JavaScript -->
     <script>
-        let questions;
-        let quizData;
+        let questions,
+            quizData,
+            result;
         async function getQuizItems() {
             const {default: apiFetch} = await import('/js/utils/apiFetch.js');
             try {
@@ -202,7 +202,6 @@
                 console.error('Failed to load quiz:', error);
                 return;
             }
-
             function displayQuestion(question) {
                 if (!question) return;
 
@@ -222,7 +221,6 @@
                     <span class="ml-3">${option.option_text}</span>
                 </label>`;
                 });
-
                 // Update progress
                 document.getElementById('current-question').textContent = currentQuestionIndex + 1;
                 document.getElementById('total-questions').textContent = questions.length;
@@ -230,7 +228,6 @@
                 document.getElementById('progress').textContent = `${Math.round(progress)}%`;
                 document.getElementById('CurrentProgress').style.width = `${Math.round(progress)}%`;
             }
-
             let startBtn = document.getElementById('start-btn');
             startBtn.addEventListener('click', () => {
                 // send request to an API
@@ -239,7 +236,7 @@
                     const {default: apiFetch} = await import('/js/utils/apiFetch.js');
                     await apiFetch('/results', {method: 'POST', body: JSON.stringify({quiz_id: quizData.id})})
                         .then((data) => {
-                            console.log(data)
+                            result = data.result
                         })
                         .catch((error) => {
                             document.getElementById('error').innerHTML = '';
@@ -254,7 +251,6 @@
                 document.getElementById('questionContainer').classList.remove('hidden');
                 startTimer(quizData.time_limit*60, document.getElementById('timer')); // 20 minutes
             });
-
             function startTimer(duration, display) {
                 let timer = duration;
                 return setInterval(() => {
@@ -268,7 +264,6 @@
                     }
                 }, 1000);
             }
-
             // Add event listeners for navigation buttons
             document.getElementById('next-btn').addEventListener('click', () => {
                 if (currentQuestionIndex < questions.length - 1) {
@@ -278,7 +273,6 @@
                     alert('No more questions');
                 }
             });
-
             document.getElementById('prev-btn').addEventListener('click', () => {
                 if (currentQuestionIndex > 0) {
                     currentQuestionIndex--;
@@ -287,7 +281,6 @@
                     alert('No previous question');
                 }
             });
-
             document.getElementById('submit-quiz').addEventListener('click', () => {
                 let form = document.getElementById('options');
                 let formData = new FormData(form);
@@ -302,6 +295,28 @@
                 let question = questions[currentQuestionIndex],
                     questionContainer = document.getElementById('questionContainer');
                 if (question) {
+                    async function submitAnswer(){
+                        // console.log(formData)
+                        // alert(123)
+                            const { default: apiFetch } = await import('/js/utils/apiFetch.js');
+                            await apiFetch('/answers',{method:'POST',
+                                                       body:JSON.stringify({
+                                                           result_id: result.id,
+                                                           option_id: formData.get('answer')
+                                                       })
+                            })
+                                .then((data) => {
+                                    localStorage.setItem('token', data.token);
+                                    window.location.href = '/dashboard';
+                                })
+                                .catch((error) => {
+                                    document.getElementById('error').innerHTML = '';
+                                    Object.keys(error.data.errors).forEach(err => {
+                                        document.getElementById('error').innerHTML += `<p class="text-red-500 mt-1">${error.data.errors[err]}</p>`;
+                                    })
+                                });
+                        }
+                    submitAnswer();
                     displayQuestion(question);
                 } else {
                     // display result
@@ -310,7 +325,6 @@
                 }
             });
         }
-
         quiz();
     </script>
     <script>
