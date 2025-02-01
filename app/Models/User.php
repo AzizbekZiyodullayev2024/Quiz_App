@@ -48,4 +48,16 @@ class User extends DB{
         ]);
         return $stmt->fetch();
     }
+    public function getQuizzesCount(int $id) {
+        $query = "SELECT COUNT(*) as count FROM quizzes WHERE user_id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([':id' => $id]);
+        $result = $stmt->fetch();
+
+        if ($result) {
+            return $result['count'];
+        } else {
+            return 0; // Return 0 if no quizzes found for the user
+        }
+    }
 }

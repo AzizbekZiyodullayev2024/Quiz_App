@@ -17,7 +17,7 @@
                     </button>
                     <div class="flex items-center space-x-4">
                         <div class="flex items-center space-x-2">
-                            <img src="https://via.placeholder.com/40" alt="Profile" class="w-10 h-10 rounded-full">
+                            <img alt="Profile" class="w-10 h-10 rounded-full">
 
                             <span class="text-gray-700 font-medium" id="userName">
 
@@ -52,7 +52,7 @@
                             <h3 class="text-gray-500">Total Quizzes</h3>
                             <i class="fas fa-book text-blue-500"></i>
                         </div>
-                        <p class="text-2xl font-bold mt-2">24</p>
+                        <p class="text-2xl font-bold mt-2" id="total-quizzes" >24</p>
                         <p class="text-sm text-green-500 mt-2">+3 this week</p>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow">

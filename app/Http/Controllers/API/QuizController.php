@@ -25,7 +25,11 @@ class QuizController{
         if($quiz) {
             $questions = (new Question())->getWithOptions($quizId);
             $quiz->questions = $questions;
-            apiResponse($quiz);
+            $questionCount = $questions['questions'];
+            apiResponse([
+                'quiz' => $quiz,
+                'questionCount' => $questionCount
+            ]);
         }
         apiResponse(['errors' => ['message' => 'Quiz not found']],404);
     }
@@ -76,7 +80,6 @@ class QuizController{
             'timeLimit' => 'integer',
             'questions' => 'array',
         ]);
-        dd($quizItems);
         $quizTitle = $quizItems['title'];
         $quizDescription = $quizItems['description'];
         $timeLimit = $quizItems['timeLimit'];

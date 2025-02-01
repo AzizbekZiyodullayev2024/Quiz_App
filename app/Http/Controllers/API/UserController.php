@@ -45,4 +45,8 @@ class UserController{
             'data' => $user
         ]);
     }
+    public function getUserQuizzes(){
+        $countQuizzes = (new User())->getQuizzesCount(Auth::user()->id);
+        apiResponse($countQuizzes);
+    }
 }

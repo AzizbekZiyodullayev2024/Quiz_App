@@ -1,5 +1,5 @@
 <?php require '../resources/views/components/dashboard/header.php'?>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/js/utils/getUser.js"></script>
 
 <body class="bg-gray-100">

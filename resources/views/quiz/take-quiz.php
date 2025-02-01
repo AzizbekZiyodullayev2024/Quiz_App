@@ -140,7 +140,7 @@
                         <p class="text-gray-600">Final Score</p>
                     </div>
                     <div class="text-center">
-                        <p class="text-3xl font-bold text-blue-600" id="time-taken">0:00</p>
+                        <p class="text-3xl font-bold text-blue-600" id="result-time-taken">0:00</p>
                         <p class="text-gray-600">Time Taken</p>
                     </div>
                 </div>
@@ -186,11 +186,9 @@
                 throw error;
             }
         }
-
         async function quiz() {
             questions = [];
             let currentQuestionIndex = 0;
-
             // Initialize quiz data
             try {
                 questions = await getQuizItems();
@@ -239,10 +237,10 @@
                             result = data.result
                         })
                         .catch((error) => {
-                            document.getElementById('error').innerHTML = '';
-                            Object.keys(error.data.errors).forEach(err => {
-                                document.getElementById('error').innerHTML += `<p class="text-red-500 mt-1">${error.data.errors[err]}</p>`;
-                            })
+                            // display result
+                            document.getElementById('result-time-taken').innerText = error.data.data.result.time_taken;
+                            document.getElementById('results-card').classList.remove('hidden');
+                            document.getElementById('questionContainer').classList.add('hidden');
                         });
                 }
                 startQuiz();
@@ -296,8 +294,6 @@
                     questionContainer = document.getElementById('questionContainer');
                 if (question) {
                     async function submitAnswer(){
-                        // console.log(formData)
-                        // alert(123)
                             const { default: apiFetch } = await import('/js/utils/apiFetch.js');
                             await apiFetch('/answers',{method:'POST',
                                                        body:JSON.stringify({
@@ -312,7 +308,8 @@
                                 .catch((error) => {
                                     document.getElementById('error').innerHTML = '';
                                     Object.keys(error.data.errors).forEach(err => {
-                                        document.getElementById('error').innerHTML += `<p class="text-red-500 mt-1">${error.data.errors[err]}</p>`;
+                                        document.getElementById('error').innerHTML +=
+                                            `<p class="text-red-500 mt-1">${error.data.errors[err]}</p>`;
                                     })
                                 });
                         }
