@@ -25,3 +25,4 @@ Router::post("/api/results",[ResultController::class,"store"],'auth:api');
 Router::post("/api/answers",[AnswerController::class,"store"],'auth:api');
 //NotFound;
 Router::notFound();
+//Azizbek
