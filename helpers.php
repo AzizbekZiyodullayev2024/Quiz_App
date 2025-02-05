@@ -6,7 +6,7 @@ function view (string $page, array $data = []){
 }
 function assets($fileName): string
 {
-    return $_ENV['APP_URL'] . '/public' . $fileName;
+    return $_ENV['APP_URL'] .  $fileName;
 }
 
 function redirect (string $url){
