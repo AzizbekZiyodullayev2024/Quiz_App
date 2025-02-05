@@ -1,5 +1,3 @@
-.env
-.env.example
 .idea/
 vendor
 node_modules
