@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page not found</title>
-    <link rel="stylesheet" href="css/tailwind.css">
+    <link rel="stylesheet" href="<?php echo assets('/css/tailwind.css') ?>">
 </head>
 <body>
 <section class="bg-white dark:bg-gray-900">
