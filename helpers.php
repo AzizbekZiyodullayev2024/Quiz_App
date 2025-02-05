@@ -4,6 +4,11 @@ function view (string $page, array $data = []){
     require 'resources/views/' . $page . '.php';
     exit();
 }
+function assets($fileName): string
+{
+    return $_ENV['APP_URL'] . '/public/' . $fileName;
+}
+
 function redirect (string $url){
     header('Location: ' . $url);
     exit();
